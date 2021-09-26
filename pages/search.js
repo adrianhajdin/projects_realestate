@@ -4,7 +4,7 @@ import { BsFilter } from 'react-icons/bs';
 
 import Property from '../components/Property';
 import { baseUrl, fetchApi } from '../utils/fetchApi';
-import SearchFilters from '../components/searchFilters';
+import SearchFilters from '../components/SearchFilters';
 import { useState } from 'react';
 
 const Search = ({ properties }) => {
