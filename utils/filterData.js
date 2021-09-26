@@ -169,45 +169,7 @@ export const filterData = {
         placeholder: 'Sort',
         queryName: 'sort'
     },
-     areaMin: {
-        items: [
-          {
-            name: '800',
-            value: '800'
-          },
-          {
-            name: '1000',
-            value: '1000'
-          },
-          {
-            name: '2000',
-            value: '2000'
-          },
-          {
-            name: '3000',
-            value: '3000'
-          },
-          {
-            name: '4000',
-            value: '4000'
-          },  {
-            name: '5000',
-            value: '5000'
-          },
-          {
-            name: '10000',
-            value: '10000'
-          },
-          {
-            name: '20000',
-            value: '20000'
-          },
-
-
-        ],
-        placeholder: 'Min Area(sqft)',
-        queryName: 'areaMin',
-      },
+    
       areaMax: {
         items: [
       

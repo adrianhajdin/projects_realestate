@@ -65,7 +65,6 @@ export default function SearchFilters() {
     if (minPrice) query.minPrice = minPrice;
     if (maxPrice) query.maxPrice = maxPrice;
     if (areaMax) query.areaMax = areaMax;
-    if (areaMin) query.areaMin = areaMin;
     if (roomsMin) query.roomsMin = roomsMin;
     if (bathsMin) query.bathsMin = bathsMin;
     if (sort) query.sort = sort;
@@ -144,12 +143,7 @@ export default function SearchFilters() {
         placeholder={filters.sort.placeholder}
         queryName={filters.sort.queryName}
       />
-      <SelectFilters
-        data={filters.areaMin.items}
-        handleClick={searchProperties}
-        placeholder={filters.areaMin.placeholder}
-        queryName={filters.areaMin.queryName}
-      />
+ 
       <SelectFilters
         data={filters.areaMax.items}
         handleClick={searchProperties}
