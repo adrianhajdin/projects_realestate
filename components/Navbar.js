@@ -39,10 +39,10 @@ export default function Navbar() {
               <MenuItem icon={<BsSearch />}>Search</MenuItem>
             </Link>
             <Link href='/search?purpose=for-sale' passHref>
-              <MenuItem icon={<FcAbout />}>For Sale</MenuItem>
+              <MenuItem icon={<FcAbout />}>Buy Property</MenuItem>
             </Link>
             <Link href='/search?purpose=for-rent' passHref>
-              <MenuItem icon={<FiKey />}>For Rent</MenuItem>
+              <MenuItem icon={<FiKey />}>Rent Property</MenuItem>
             </Link>
           </MenuList>
         </Menu>
