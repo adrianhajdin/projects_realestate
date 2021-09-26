@@ -8,9 +8,14 @@ function LeftArrow() {
   const { scrollPrev } = useContext(VisibilityContext);
 
   return (
-    <Flex   justifyContent='center' alignItems='center' marginRight='1'>
-    <Icon as={FaArrowAltCircleLeft} onClick={() => scrollPrev()} fontSize='2xl' cursor='pointer' />
-  </Flex>
+    <Flex justifyContent='center' alignItems='center' marginRight='1'>
+      <Icon
+        as={FaArrowAltCircleLeft}
+        onClick={() => scrollPrev()}
+        fontSize='2xl'
+        cursor='pointer'
+      />
+    </Flex>
   );
 }
 
@@ -18,14 +23,23 @@ function RightArrow() {
   const { scrollNext } = useContext(VisibilityContext);
 
   return (
-    <Flex   justifyContent='center' alignItems='center' marginLeft='1'>
-      <Icon as={FaArrowAltCircleRight} onClick={() => scrollNext()} fontSize='2xl' cursor='pointer' />
+    <Flex justifyContent='center' alignItems='center' marginLeft='1'>
+      <Icon
+        as={FaArrowAltCircleRight}
+        onClick={() => scrollNext()}
+        fontSize='2xl'
+        cursor='pointer'
+      />
     </Flex>
   );
 }
 export default function ImageSrollbar({ data }) {
   return (
-    <ScrollMenu LeftArrow={LeftArrow} RightArrow={RightArrow} style={{overflow:'hidden'}}>
+    <ScrollMenu
+      LeftArrow={LeftArrow}
+      RightArrow={RightArrow}
+      style={{ overflow: 'hidden' }}
+    >
       {data.map((item) => (
         <Box width='910px' itemId={item.id} overflow='hidden' p='1'>
           <Image src={item.url} width={1000} height={500} />

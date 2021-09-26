@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-
 import {
   Flex,
   Select,
@@ -102,7 +101,13 @@ export default function SearchFilters() {
     }
   }, [searchTerm]);
   return (
-    <Flex bg='gray.100' p='4' justifyContent='center' flexWrap='wrap' alignItems='center'>
+    <Flex
+      bg='gray.100'
+      p='4'
+      justifyContent='center'
+      flexWrap='wrap'
+      alignItems='center'
+    >
       <SelectFilters
         data={filters.purpose.items}
         handleClick={searchProperties}
