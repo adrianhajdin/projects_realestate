@@ -23,7 +23,7 @@ export const SelectFilters = ({
   return (
     <Select
       placeholder={placeholder}
-      w='150px'
+      w='fit-content'
       p='2'
       onChange={(e) => handleClick({ [queryName]: e.target.value })}
     >
@@ -51,7 +51,6 @@ export default function SearchFilters() {
     minPrice,
     maxPrice,
     areaMax,
-    areaMin,
     roomsMin,
     bathsMin,
     sort,
@@ -165,7 +164,7 @@ export default function SearchFilters() {
       />
       <Select
         placeholder='Property Type'
-        w='150px'
+        w='fit-content'
         p='2'
         onChange={(e) =>
           searchProperties({ categoryExternalID: e.target.value })

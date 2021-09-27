@@ -322,14 +322,6 @@ export const filterData = {
         {name:'Residential Floor',id:'12'},
 
         {name:'Residential Building',id:'17'},
-        {name:'Office',id:'5'},
-
-        {name:'Shop',id:'6'},
-        {name:'Warehouse',id:'7'},
-        {name:'Labour camp',id:'9'},
-        {name:'Commercial Villa',id:'25'},
-        {name:'Bulk Units',id:'20'},
-        {name:'Commercial Plot',id:'15'},
         ],
 
   }

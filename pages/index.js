@@ -15,15 +15,16 @@ export const Banner = ({
   buttonColor,
   buttonTextColor,
   linkName,
+  imageUrl
 }) => {
   return (
-    <Flex flexWrap='wrap' justifyContent='center' alignItems='center' m='16'>
+    <Flex flexWrap='wrap' justifyContent='center' alignItems='center' m='10'>
       <Image
-        src='https://bayut-production.s3.eu-central-1.amazonaws.com/image/110993385/6a070e8e1bae4f7d8c1429bc303d2008'
+        src={imageUrl}
         width={500}
         height={300}
       />
-      <Box p='10'>
+      <Box p='5'>
         <Text color='gray.500' fontSize='sm' fontWeight='medium'>
           {purpose}
         </Text>
@@ -60,6 +61,7 @@ const Home = ({ propertiesForSale, propertiesForRent }) => {
         buttonColor='gray.100'
         buttonTextColor='gray.800'
         linkName='/search?purpose=for-rent'
+        imageUrl='https://bayut-production.s3.eu-central-1.amazonaws.com/image/145426814/33973352624c48628e41f2ec460faba4'
       />
       <Flex flexWrap='wrap'>
         {propertiesForRent.map((property) => (
@@ -76,6 +78,7 @@ const Home = ({ propertiesForSale, propertiesForRent }) => {
         buttonColor='blue.300'
         buttonTextColor='white'
         linkName='/search?purpose=for-sale'
+        imageUrl='https://bayut-production.s3.eu-central-1.amazonaws.com/image/110993385/6a070e8e1bae4f7d8c1429bc303d2008'
       />
 
       <Flex flexWrap='wrap'>

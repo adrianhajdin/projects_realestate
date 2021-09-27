@@ -21,12 +21,14 @@ export default function Property({ property }) {
     agency,
     isVerified,
   } = property;
+  console.log(property)
   return (
     <Link href={`/property/${property.externalID}`} passHref>
       <Flex
         flexWrap='wrap'
-        w='370px'
+        w='420px'
         p='5'
+        paddingTop='0px'
         justifyContent='flex-start'
         cursor='pointer'
       >
