@@ -98,7 +98,7 @@ export default function PropertyDetails({ propertyDetails }) {
         )}
       </Flex>
       <Box>
-        {amenities && (
+        {amenities?.length !== 0 && (
           <Text fontSize='2xl' fontWeight='black' marginTop='5'>
             Facilites:
           </Text>

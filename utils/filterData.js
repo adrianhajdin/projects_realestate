@@ -307,21 +307,26 @@ export const filterData = {
           placeholder:'Furnish Type',
           queryName:'furnishingStatus'
       },
-      propertyType:  [
-        {name:'Apartment',id:'4'},
-        {name:'Townhouses',id:'16'},
-        {name:'Villas',id:'3'},
+      propertyType:  {
+        items:[
+          {name:'Apartment',value:'4'},
+          {name:'Townhouses',value:'16'},
+          {name:'Villas',value:'3'},
+  
+          {name:'Penthouses',value:'18'},
+  
+          {name:'Hotel Apartments',value:'21'},
+          {name:'Villa Compound',value:'19'},
+  
+          {name:'Residential Plot',value:'14'},
+  
+          {name:'Residential Floor',value:'12'},
+  
+          {name:'Residential Building',value:'17'},
+          ],
+           placeholder: 'Property Type',
+           queryName: 'categoryExternalID'
 
-        {name:'Penthouses',id:'18'},
-
-        {name:'Hotel Apartments',id:'21'},
-        {name:'Villa Compound',id:'19'},
-
-        {name:'Residential Plot',id:'14'},
-
-        {name:'Residential Floor',id:'12'},
-
-        {name:'Residential Building',id:'17'},
-        ],
-
+      }
+     
   }

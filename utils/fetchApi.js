@@ -7,7 +7,7 @@ export const fetchApi = async (url) => {
           method: 'GET',
           headers: {
             'x-rapidapi-host': 'bayut.p.rapidapi.com',
-            'x-rapidapi-key': process.env.RAPID_API_KEY ,
+            'x-rapidapi-key': process.env.NEXT_PUBLIC_RAPID_API_KEY ,
           },
         }
       );

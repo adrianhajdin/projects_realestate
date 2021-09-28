@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import Image from 'next/image';
 import {
   Flex,
   Select,
@@ -8,11 +9,13 @@ import {
   Input,
   Spinner,
   Icon,
+  Button,
 } from '@chakra-ui/react';
 import { MdCancel } from 'react-icons/md';
 
 import { filterData } from '../utils/filterData';
-import { baseUrl } from '../utils/fetchApi';
+import { baseUrl, fetchApi,  } from '../utils/fetchApi';
+import noresult from '../assets/images/noresult.svg';
 
 export const SelectFilters = ({
   data,
@@ -80,18 +83,7 @@ export default function SearchFilters() {
     if (searchTerm !== '') {
       const fetchData = async () => {
         setLoading(true);
-        const res = await fetch(
-          `${baseUrl}/auto-complete?query=${searchTerm}`,
-          {
-            method: 'GET',
-            headers: {
-              'x-rapidapi-host': 'bayut.p.rapidapi.com',
-              'x-rapidapi-key':
-                'bc6835fed4msh98afeb778d02be8p1b0388jsn0da601751930',
-            },
-          }
-        );
-        const data = await res.json();
+        const data = await fetchApi(`${baseUrl}/auto-complete?query=${searchTerm}`)
         setLoading(false);
         setLocationData(data?.hits);
       };
@@ -104,7 +96,6 @@ export default function SearchFilters() {
       p='4'
       justifyContent='center'
       flexWrap='wrap'
-      alignItems='center'
     >
       <SelectFilters
         data={filters.purpose.items}
@@ -112,7 +103,6 @@ export default function SearchFilters() {
         placeholder={filters.purpose.placeholder}
         queryName={filters.purpose.queryName}
       />
-
       {router.query.purpose === 'for-rent' ? (
         <SelectFilters
           data={filters.rentFrequency.items}
@@ -142,7 +132,7 @@ export default function SearchFilters() {
         placeholder={filters.sort.placeholder}
         queryName={filters.sort.queryName}
       />
- 
+
       <SelectFilters
         data={filters.areaMax.items}
         handleClick={searchProperties}
@@ -162,72 +152,89 @@ export default function SearchFilters() {
         placeholder={filters.roomsMin.placeholder}
         queryName={filters.roomsMin.queryName}
       />
-      <Select
-        placeholder='Property Type'
-        w='fit-content'
-        p='2'
-        onChange={(e) =>
-          searchProperties({ categoryExternalID: e.target.value })
-        }
-      >
-        {filters.propertyType.map((item) => (
-          <option value={item.id} key={item.id}>
-            {item.name}
-          </option>
-        ))}
-      </Select>
 
-      <Flex flexDir='column' pos='relative'>
-        <Input
-          placeholder='Search Location'
-          value={searchTerm}
-          w='300px'
-          onChange={(e) => {
-            setSearchTerm(e.target.value);
-          }}
-          onFocus={() => {
-            setShowLocations(!showLocations);
-          }}
-        />
-        {searchTerm !== '' && (
-          <Icon
-            as={MdCancel}
-            pos='absolute'
-            cursor='pointer'
-            right='5'
-            top='3'
-            zIndex='100'
-            onClick={() => setShowLocations(false)}
+      <SelectFilters
+        data={filters.propertyType.items}
+        handleClick={searchProperties}
+        placeholder={filters.propertyType.placeholder}
+        queryName={filters.propertyType.queryName}
+      />
+      <Flex flexDir='column'>
+      <Button
+        border='1px'
+        borderColor='gray.200'
+        marginTop='2'
+        onClick={() => setShowLocations(!showLocations)}
+      >
+        Search Location
+      </Button>
+      {showLocations && (
+        <Flex flexDir='column' pos='relative' paddingTop='2'>
+          <Input
+            placeholder='Type Here'
+            value={searchTerm}
+            w='300px'
+          focusBorderColor='gray.300'
+            onChange={(e) => {
+              setSearchTerm(e.target.value);
+            }}
           />
-        )}
-        {loading && <Spinner margin='auto' marginTop='3' />}
-        {showLocations && (
-          <Box height='300px' overflow='auto'>
-            {locationData?.map((location) => (
-              <Box
-                key={location.id}
-                onClick={() => {
-                  searchProperties({
-                    locationExternalIDs: location.externalID,
-                  });
-                  setShowLocations(false);
-                  setSearchTerm(location.name);
-                }}
-              >
-                <Text
-                  cursor='pointer'
-                  bg='gray.200'
-                  p='2'
-                  borderBottom='1px'
-                  borderColor='gray.100'
+          {searchTerm !== '' && (
+            <Icon
+              as={MdCancel}
+              pos='absolute'
+              cursor='pointer'
+              right='5'
+              top='5'
+              zIndex='100'
+              onClick={() => setSearchTerm('')}
+            />
+          )}
+          {loading && <Spinner margin='auto' marginTop='3' />}
+          {showLocations && (
+            <Box height='300px' overflow='auto'>
+              {locationData?.map((location) => (
+                <Box
+                  key={location.id}
+                  onClick={() => {
+                    searchProperties({
+                      locationExternalIDs: location.externalID,
+                    });
+                    setShowLocations(false);
+                    setSearchTerm(location.name);
+                  }}
                 >
-                  {location.name}
-                </Text>
-              </Box>
-            ))}
-          </Box>
-        )}
+                  <Text
+                    cursor='pointer'
+                    bg='gray.200'
+                    p='2'
+                    borderBottom='1px'
+                    borderColor='gray.100'
+                  >
+                    {location.name}
+                  </Text>
+                </Box>
+              ))}
+              {!loading && !locationData?.length && (
+                <Flex
+                  justifyContent='center'
+                  alignItems='center'
+                  flexDir='column'
+                  marginTop='5'
+                  marginBottom='5'
+                >
+                  <Image src={noresult} />
+                  <Text fontSize='xl' marginTop='3'>
+                  Waiting to search!
+                  </Text>
+                </Flex>
+              )}
+            </Box>
+          )}
+        </Flex>
+      )}
       </Flex>
+     
     </Flex>
   );
 }
