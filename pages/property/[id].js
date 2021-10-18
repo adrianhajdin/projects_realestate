@@ -8,23 +8,9 @@ import millify from 'millify';
 import { baseUrl, fetchApi } from '../../utils/fetchApi';
 import ImageSrollbar from '../../components/ImageScrollbar';
 
-export default function PropertyDetails({ propertyDetails }) {
-  const {
-    price,
-    rentFrequency,
-    rooms,
-    title,
-    baths,
-    area,
-    agency,
-    isVerified,
-    description,
-    type,
-    purpose,
-    furnishingStatus,
-    amenities,
-    photos,
-  } = propertyDetails;
+const PropertyDetails = ({ propertyDetails }) => {
+  const { price, rentFrequency, rooms, title, baths, area, agency, isVerified, description, type, purpose, furnishingStatus, amenities, photos, } = propertyDetails;
+  
   return (
     <Box maxWidth='1000px' margin='auto' p='4'>
       {photos && <ImageSrollbar data={photos} />}
@@ -40,58 +26,26 @@ export default function PropertyDetails({ propertyDetails }) {
           <Spacer />
           <Avatar size='sm' src={agency?.logo?.url}></Avatar>
         </Flex>
-        <Flex
-          alignItems='center'
-          p='1'
-          justifyContent='space-between'
-          w='250px'
-          color='blue.400'
-        >
+        <Flex alignItems='center' p='1' justifyContent='space-between' w='250px' color='blue.400'>
           {rooms}
           <FaBed /> | {baths} <FaBath /> | {millify(area)} sqft <BsGridFill />
         </Flex>
       </Box>
       <Box marginTop='2'>
-        <Text fontSize='lg' marginBottom='2' fontWeight='bold'>
-          {title}
-        </Text>
-        <Text lineHeight='2' color='gray.600'>
-          {description}
-        </Text>
+        <Text fontSize='lg' marginBottom='2' fontWeight='bold'>{title}</Text>
+        <Text lineHeight='2' color='gray.600'>{description}</Text>
       </Box>
-      <Flex
-        flexWrap='wrap'
-        textTransform='uppercase'
-        justifyContent='space-between'
-      >
-        <Flex
-          justifyContent='space-between'
-          w='400px'
-          borderBottom='1px'
-          borderColor='gray.100'
-          p='3'
-        >
+      <Flex flexWrap='wrap' textTransform='uppercase' justifyContent='space-between'>
+        <Flex justifyContent='space-between' w='400px' borderBottom='1px' borderColor='gray.100' p='3'>
           <Text>Type</Text>
           <Text fontWeight='bold'>{type}</Text>
         </Flex>
-        <Flex
-          justifyContent='space-between'
-          w='400px'
-          borderBottom='1px'
-          borderColor='gray.100'
-          p='3'
-        >
+        <Flex justifyContent='space-between' w='400px' borderBottom='1px' borderColor='gray.100' p='3'>
           <Text>Purpose</Text>
           <Text fontWeight='bold'>{purpose}</Text>
         </Flex>
         {furnishingStatus && (
-          <Flex
-            justifyContent='space-between'
-            w='400px'
-            borderBottom='1px'
-            borderColor='gray.100'
-            p='3'
-          >
+          <Flex justifyContent='space-between' w='400px' borderBottom='1px' borderColor='gray.100' p='3' >
             <Text>Furnishing Status</Text>
             <Text fontWeight='bold'>{furnishingStatus}</Text>
           </Flex>
@@ -99,23 +53,12 @@ export default function PropertyDetails({ propertyDetails }) {
       </Flex>
       <Box>
         {amenities?.length !== 0 && (
-          <Text fontSize='2xl' fontWeight='black' marginTop='5'>
-            Facilites:
-          </Text>
+          <Text fontSize='2xl' fontWeight='black' marginTop='5'>Facilites:</Text>
         )}
-
         {amenities?.map((item, index) => (
           <Flex key={index} flexWrap='wrap' margin='4'>
             {item?.amenities?.map((amenity) => (
-              <Text
-                fontWeight='bold'
-                color='blue.400'
-                fontSize='xl'
-                p='2'
-                bg='gray.200'
-                m='1'
-                borderRadius='5'
-              >
+              <Text fontWeight='bold' color='blue.400' fontSize='xl' p='2' bg='gray.200' m='1' borderRadius='5'>
                 {amenity.text}
               </Text>
             ))}
@@ -126,8 +69,11 @@ export default function PropertyDetails({ propertyDetails }) {
   );
 }
 
+export default PropertyDetails;
+
 export async function getServerSideProps({ params: { id } }) {
   const data = await fetchApi(`${baseUrl}/properties/detail?externalID=${id}`);
+  
   return {
     props: {
       propertyDetails: data,

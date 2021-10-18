@@ -39,17 +39,17 @@ const Search = ({ properties }) => {
           <Property property={property} key={property.id} />
         ))}
       </Flex>
-      {
-        (properties.length === 0) && (
-          <Flex justifyContent='center' alignItems='center' flexDir='column' marginTop='5' marginBottom='5'>
-           <Image src={noresult} />
-           <Text fontSize='xl' marginTop='3'>No Result Found.</Text>
+      {properties.length === 0 && (
+        <Flex justifyContent='center' alignItems='center' flexDir='column' marginTop='5' marginBottom='5'>
+          <Image src={noresult} />
+          <Text fontSize='xl' marginTop='3'>No Result Found.</Text>
         </Flex>
-        )
-      }
+      )}
     </Box>
   );
 };
+
+// TODO: Do we need || everywhere?
 
 export async function getServerSideProps({ query }) {
   const purpose = query.purpose || 'for-rent';
@@ -63,9 +63,7 @@ export async function getServerSideProps({ query }) {
   const locationExternalIDs = query.locationExternalIDs || '5002';
   const categoryExternalID = query.categoryExternalID || '4';
 
-  const data = await fetchApi(
-    `${baseUrl}/properties/list?locationExternalIDs=${locationExternalIDs}&purpose=${purpose}&categoryExternalID=${categoryExternalID}&bathsMin=${bathsMin}&rentFrequency=${rentFrequency}&priceMin=${minPrice}&priceMax=${maxPrice}&roomsMin=${roomsMin}&sort=${sort}&areaMax=${areaMax}`
-  );
+  const data = await fetchApi(`${baseUrl}/properties/list?locationExternalIDs=${locationExternalIDs}&purpose=${purpose}&categoryExternalID=${categoryExternalID}&bathsMin=${bathsMin}&rentFrequency=${rentFrequency}&priceMin=${minPrice}&priceMax=${maxPrice}&roomsMin=${roomsMin}&sort=${sort}&areaMax=${areaMax}`);
 
   return {
     props: {
