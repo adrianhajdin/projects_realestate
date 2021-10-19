@@ -13,7 +13,7 @@ import {
 } from '@chakra-ui/react';
 import { MdCancel } from 'react-icons/md';
 
-import { filterData, filterValues } from '../utils/filterData';
+import { filterData, getFilterValues } from '../utils/filterData';
 import { baseUrl, fetchApi } from '../utils/fetchApi';
 import noresult from '../assets/images/noresult.svg';
 
@@ -25,39 +25,16 @@ export default function SearchFilters() {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
-  const searchProperties = ({
-    purpose,
-    rentFrequency,
-    categoryExternalID,
-    minPrice,
-    maxPrice,
-    areaMax,
-    roomsMin,
-    bathsMin,
-    sort,
-    locationExternalIDs,
-  }) => {
+  const searchProperties = (filterValues) => {
     const path = router.pathname;
     const { query } = router;
 
 
-    const values = filterValues({
-      purpose,
-      rentFrequency,
-      categoryExternalID,
-      minPrice,
-      maxPrice,
-      areaMax,
-      roomsMin,
-      bathsMin,
-      sort,
-      locationExternalIDs,
-    })
+    const values = getFilterValues(filterValues)
 
     values.forEach((item) => {
       query[item.name] = item.value
     })
-
 
     router.push({ pathname: path, query: query });
   };
