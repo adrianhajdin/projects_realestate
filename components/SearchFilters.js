@@ -1,16 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
-import {
-  Flex,
-  Select,
-  Box,
-  Text,
-  Input,
-  Spinner,
-  Icon,
-  Button,
-} from '@chakra-ui/react';
+import { Flex, Select, Box, Text, Input, Spinner, Icon, Button } from '@chakra-ui/react';
 import { MdCancel } from 'react-icons/md';
 
 import { filterData, filterValues } from '../utils/filterData';
@@ -25,39 +16,15 @@ export default function SearchFilters() {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
-  const searchProperties = ({
-    purpose,
-    rentFrequency,
-    categoryExternalID,
-    minPrice,
-    maxPrice,
-    areaMax,
-    roomsMin,
-    bathsMin,
-    sort,
-    locationExternalIDs,
-  }) => {
+  const searchProperties = ({ purpose, rentFrequency, categoryExternalID, minPrice, maxPrice, areaMax, roomsMin, bathsMin, sort, locationExternalIDs }) => {
     const path = router.pathname;
     const { query } = router;
 
-
-    const values = filterValues({
-      purpose,
-      rentFrequency,
-      categoryExternalID,
-      minPrice,
-      maxPrice,
-      areaMax,
-      roomsMin,
-      bathsMin,
-      sort,
-      locationExternalIDs,
-    })
+    const values = filterValues({ purpose, rentFrequency, categoryExternalID, minPrice, maxPrice, areaMax, roomsMin, bathsMin, sort, locationExternalIDs })
 
     values.forEach((item) => {
       query[item.name] = item.value
     })
-
 
     router.push({ pathname: path, query: query });
   };
@@ -66,9 +33,7 @@ export default function SearchFilters() {
     if (searchTerm !== '') {
       const fetchData = async () => {
         setLoading(true);
-        const data = await fetchApi(
-          `${baseUrl}/auto-complete?query=${searchTerm}`
-        );
+        const data = await fetchApi(`${baseUrl}/auto-complete?query=${searchTerm}`);
         setLoading(false);
         setLocationData(data?.hits);
       };
@@ -77,20 +42,11 @@ export default function SearchFilters() {
     }
   }, [searchTerm]);
 
-  // TODO: Can we remove duplication for SelectFilters - maybe map over them?
-
   return (
     <Flex bg='gray.100' p='4' justifyContent='center' flexWrap='wrap'>
       {filters?.map((filter) => (
         <Box key={filter.queryName}>
-          <Select
-            onChange={(e) =>
-              searchProperties({ [filter.queryName]: e.target.value })
-            }
-            placeholder={filter.placeholder}
-            w='fit-content'
-            p='2'
-          >
+          <Select onChange={(e) => searchProperties({ [filter.queryName]: e.target.value })} placeholder={filter.placeholder} w='fit-content' p='2' >
             {filter?.items?.map((item) => (
               <option value={item.value} key={item.value}>
                 {item.name}
@@ -99,14 +55,8 @@ export default function SearchFilters() {
           </Select>
         </Box>
       ))}
-
       <Flex flexDir='column'>
-        <Button
-          onClick={() => setShowLocations(!showLocations)}
-          border='1px'
-          borderColor='gray.200'
-          marginTop='2'
-        >
+        <Button onClick={() => setShowLocations(!showLocations)} border='1px' borderColor='gray.200' marginTop='2' >
           Search Location
         </Button>
         {showLocations && (
@@ -136,32 +86,18 @@ export default function SearchFilters() {
                   <Box
                     key={location.id}
                     onClick={() => {
-                      searchProperties({
-                        locationExternalIDs: location.externalID,
-                      });
+                      searchProperties({ locationExternalIDs: location.externalID });
                       setShowLocations(false);
                       setSearchTerm(location.name);
                     }}
                   >
-                    <Text
-                      cursor='pointer'
-                      bg='gray.200'
-                      p='2'
-                      borderBottom='1px'
-                      borderColor='gray.100'
-                    >
+                    <Text cursor='pointer' bg='gray.200' p='2' borderBottom='1px' borderColor='gray.100' >
                       {location.name}
                     </Text>
                   </Box>
                 ))}
                 {!loading && !locationData?.length && (
-                  <Flex
-                    justifyContent='center'
-                    alignItems='center'
-                    flexDir='column'
-                    marginTop='5'
-                    marginBottom='5'
-                  >
+                  <Flex justifyContent='center' alignItems='center' flexDir='column' marginTop='5' marginBottom='5' >
                     <Image src={noresult} />
                     <Text fontSize='xl' marginTop='3'>
                       Waiting to search!

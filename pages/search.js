@@ -49,8 +49,6 @@ const Search = ({ properties }) => {
   );
 };
 
-// TODO: Do we need || everywhere?
-
 export async function getServerSideProps({ query }) {
   const purpose = query.purpose || 'for-rent';
   const rentFrequency = query.rentFrequency || 'yearly';
