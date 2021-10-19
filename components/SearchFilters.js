@@ -1,24 +1,21 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
-import { Flex, Select, Box, Text, Input, Spinner, Icon, Button } from '@chakra-ui/react';
+import {
+  Flex,
+  Select,
+  Box,
+  Text,
+  Input,
+  Spinner,
+  Icon,
+  Button,
+} from '@chakra-ui/react';
 import { MdCancel } from 'react-icons/md';
 
 import { filterData } from '../utils/filterData';
 import { baseUrl, fetchApi } from '../utils/fetchApi';
 import noresult from '../assets/images/noresult.svg';
-
-export const SelectFilters = ({ data, handleClick, placeholder, queryName }) => {
-  return (
-    <Select onChange={(e) => handleClick({ [queryName]: e.target.value })} placeholder={placeholder} w='fit-content' p='2'>
-      {data.map((item) => (
-        <option value={item.value} key={item.value}>
-          {item.name}
-        </option>
-      ))}
-    </Select>
-  );
-};
 
 export default function SearchFilters() {
   const [filters] = useState(filterData);
@@ -28,11 +25,23 @@ export default function SearchFilters() {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
-  const searchProperties = ({ purpose, rentFrequency, categoryExternalID, minPrice, maxPrice, areaMax, roomsMin, bathsMin, sort, locationExternalIDs }) => {
+  const searchProperties = ({
+    purpose,
+    rentFrequency,
+    categoryExternalID,
+    minPrice,
+    maxPrice,
+    areaMax,
+    roomsMin,
+    bathsMin,
+    sort,
+    locationExternalIDs,
+  }) => {
     const path = router.pathname;
     const { query } = router;
 
     // TODO: Can we remove duplication?
+
     if (purpose) query.purpose = purpose;
     if (rentFrequency) query.rentFrequency = rentFrequency;
     if (minPrice) query.minPrice = minPrice;
@@ -51,7 +60,9 @@ export default function SearchFilters() {
     if (searchTerm !== '') {
       const fetchData = async () => {
         setLoading(true);
-        const data = await fetchApi(`${baseUrl}/auto-complete?query=${searchTerm}`)
+        const data = await fetchApi(
+          `${baseUrl}/auto-complete?query=${searchTerm}`
+        );
         setLoading(false);
         setLocationData(data?.hits);
       };
@@ -64,64 +75,32 @@ export default function SearchFilters() {
 
   return (
     <Flex bg='gray.100' p='4' justifyContent='center' flexWrap='wrap'>
-      <SelectFilters
-        data={filters.purpose.items}
-        handleClick={searchProperties}
-        placeholder={filters.purpose.placeholder}
-        queryName={filters.purpose.queryName}
-      />
-      {router.query.purpose === 'for-rent' && (
-        <SelectFilters
-          data={filters.rentFrequency.items}
-          handleClick={searchProperties}
-          placeholder={filters.rentFrequency.placeholder}
-          queryName={filters.rentFrequency.queryName}
-        />
-      )}
-      <SelectFilters
-        data={filters.minPrice.items}
-        handleClick={searchProperties}
-        placeholder={filters.minPrice.placeholder}
-        queryName={filters.minPrice.queryName}
-      />
-      <SelectFilters
-        data={filters.maxPrice.items}
-        handleClick={searchProperties}
-        placeholder={filters.maxPrice.placeholder}
-        queryName={filters.maxPrice.queryName}
-      />
-      <SelectFilters
-        data={filters.sort.items}
-        handleClick={searchProperties}
-        placeholder={filters.sort.placeholder}
-        queryName={filters.sort.queryName}
-      />
-      <SelectFilters
-        data={filters.areaMax.items}
-        handleClick={searchProperties}
-        placeholder={filters.areaMax.placeholder}
-        queryName={filters.areaMax.queryName}
-      />
-      <SelectFilters
-        data={filters.bathsMin.items}
-        handleClick={searchProperties}
-        placeholder={filters.bathsMin.placeholder}
-        queryName={filters.bathsMin.queryName}
-      />
-      <SelectFilters
-        data={filters.roomsMin.items}
-        handleClick={searchProperties}
-        placeholder={filters.roomsMin.placeholder}
-        queryName={filters.roomsMin.queryName}
-      />
-      <SelectFilters
-        data={filters.propertyType.items}
-        handleClick={searchProperties}
-        placeholder={filters.propertyType.placeholder}
-        queryName={filters.propertyType.queryName}
-      />
+      {filters?.map((filter) => (
+        <Box key={filter.queryName}>
+          <Select
+            onChange={(e) =>
+              searchProperties({ [filter.queryName]: e.target.value })
+            }
+            placeholder={filter.placeholder}
+            w='fit-content'
+            p='2'
+          >
+            {filter?.items?.map((item) => (
+              <option value={item.value} key={item.value}>
+                {item.name}
+              </option>
+            ))}
+          </Select>
+        </Box>
+      ))}
+
       <Flex flexDir='column'>
-        <Button onClick={() => setShowLocations(!showLocations)} border='1px' borderColor='gray.200' marginTop='2' >
+        <Button
+          onClick={() => setShowLocations(!showLocations)}
+          border='1px'
+          borderColor='gray.200'
+          marginTop='2'
+        >
           Search Location
         </Button>
         {showLocations && (
@@ -151,20 +130,36 @@ export default function SearchFilters() {
                   <Box
                     key={location.id}
                     onClick={() => {
-                      searchProperties({ locationExternalIDs: location.externalID });
+                      searchProperties({
+                        locationExternalIDs: location.externalID,
+                      });
                       setShowLocations(false);
                       setSearchTerm(location.name);
                     }}
                   >
-                    <Text cursor='pointer' bg='gray.200' p='2' borderBottom='1px' borderColor='gray.100'>
+                    <Text
+                      cursor='pointer'
+                      bg='gray.200'
+                      p='2'
+                      borderBottom='1px'
+                      borderColor='gray.100'
+                    >
                       {location.name}
                     </Text>
                   </Box>
                 ))}
                 {!loading && !locationData?.length && (
-                  <Flex justifyContent='center' alignItems='center' flexDir='column' marginTop='5' marginBottom='5'>
+                  <Flex
+                    justifyContent='center'
+                    alignItems='center'
+                    flexDir='column'
+                    marginTop='5'
+                    marginBottom='5'
+                  >
                     <Image src={noresult} />
-                    <Text fontSize='xl' marginTop='3'>Waiting to search!</Text>
+                    <Text fontSize='xl' marginTop='3'>
+                      Waiting to search!
+                    </Text>
                   </Flex>
                 )}
               </Box>
