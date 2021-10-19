@@ -13,7 +13,7 @@ import {
 } from '@chakra-ui/react';
 import { MdCancel } from 'react-icons/md';
 
-import { filterData } from '../utils/filterData';
+import { filterData, filterValues } from '../utils/filterData';
 import { baseUrl, fetchApi } from '../utils/fetchApi';
 import noresult from '../assets/images/noresult.svg';
 
@@ -40,52 +40,21 @@ export default function SearchFilters() {
     const path = router.pathname;
     const { query } = router;
 
-    // TODO: Can we remove duplication?
-   
-    export const filterValues = [
-      {
-        name:'purpose',
-        value:purpose
-      },
-      {
-        name:'rentFrequency',
-         value:rentFrequency
-      },
-      {
-        name:'minPrice',
-        value:minPrice
-      },
-      {
-        name:'maxPrice',
-        value:maxPrice
-      },
-      {
-        name:'areaMax',
-        value:areaMax
-      },
-      {
-        name:'roomsMin',
-        value:roomsMin
-      },
-      {
-        name:'bathsMin',
-        value:bathsMin
-      },
-      {
-        name:'sort',
-        value:sort
-      },
-      {
-        name:'locationExternalIDs',
-         value:locationExternalIDs
-      },
-      {
-        name:'categoryExternalID',
-        value:categoryExternalID
-      }
-    ]
 
-    filterValues.forEach((item) =>{
+    const values = filterValues({
+      purpose,
+      rentFrequency,
+      categoryExternalID,
+      minPrice,
+      maxPrice,
+      areaMax,
+      roomsMin,
+      bathsMin,
+      sort,
+      locationExternalIDs,
+    })
+
+    values.forEach((item) => {
       query[item.name] = item.value
     })
 
