@@ -41,17 +41,54 @@ export default function SearchFilters() {
     const { query } = router;
 
     // TODO: Can we remove duplication?
+   
+    export const filterValues = [
+      {
+        name:'purpose',
+        value:purpose
+      },
+      {
+        name:'rentFrequency',
+         value:rentFrequency
+      },
+      {
+        name:'minPrice',
+        value:minPrice
+      },
+      {
+        name:'maxPrice',
+        value:maxPrice
+      },
+      {
+        name:'areaMax',
+        value:areaMax
+      },
+      {
+        name:'roomsMin',
+        value:roomsMin
+      },
+      {
+        name:'bathsMin',
+        value:bathsMin
+      },
+      {
+        name:'sort',
+        value:sort
+      },
+      {
+        name:'locationExternalIDs',
+         value:locationExternalIDs
+      },
+      {
+        name:'categoryExternalID',
+        value:categoryExternalID
+      }
+    ]
 
-    if (purpose) query.purpose = purpose;
-    if (rentFrequency) query.rentFrequency = rentFrequency;
-    if (minPrice) query.minPrice = minPrice;
-    if (maxPrice) query.maxPrice = maxPrice;
-    if (areaMax) query.areaMax = areaMax;
-    if (roomsMin) query.roomsMin = roomsMin;
-    if (bathsMin) query.bathsMin = bathsMin;
-    if (sort) query.sort = sort;
-    if (locationExternalIDs) query.locationExternalIDs = locationExternalIDs;
-    if (categoryExternalID) query.categoryExternalID = categoryExternalID;
+    filterValues.forEach((item) =>{
+      query[item.name] = item.value
+    })
+
 
     router.push({ pathname: path, query: query });
   };
