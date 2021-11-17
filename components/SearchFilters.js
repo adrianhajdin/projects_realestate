@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
-import Image from 'next/image';
 import { Flex, Select, Box, Text, Input, Spinner, Icon, Button } from '@chakra-ui/react';
+import { useRouter } from 'next/router';
 import { MdCancel } from 'react-icons/md';
+import Image from 'next/image';
 
 import { filterData, getFilterValues } from '../utils/filterData';
 import { baseUrl, fetchApi } from '../utils/fetchApi';
@@ -19,7 +19,6 @@ export default function SearchFilters() {
   const searchProperties = (filterValues) => {
     const path = router.pathname;
     const { query } = router;
-
 
     const values = getFilterValues(filterValues)
 
