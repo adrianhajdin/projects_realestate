@@ -31,7 +31,7 @@ const RightArrow = () => {
         fontSize='2xl'
         cursor='pointer'
         d={['none','none','none','block']}
-      />
+    />
     </Flex>
   );
 }
