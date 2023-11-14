@@ -1,0 +1,30 @@
+{
+  "name": "realtor",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@chakra-ui/react": "^1.6.8",
+    "@emotion/react": "^11.4.1",
+    "@emotion/styled": "^11.3.0",
+    "axios": "^0.23.0",
+    "framer-motion": "^4.1.17",
+    "millify": "^4.0.0",
+    "next": "11.1.2",
+    "nprogress": "^0.2.0",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "react-horizontal-scrolling-menu": "^2.3.2",
+    "react-icons": "^4.2.0"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.1.0",
+    "eslint": "7.32.0",
+    "eslint-config-next": "11.1.2"
+  }
+}
